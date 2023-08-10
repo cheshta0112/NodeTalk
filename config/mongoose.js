@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost/NodeTalk_development");
+mongoose.connect("mongodb://127.0.0.1/nodetalk");
 
 const db = mongoose.connection;
 
