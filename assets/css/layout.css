@@ -1,4 +1,23 @@
 body {
   margin: 0;
   text-align: center;
+  /* background: linear-gradient(
+    0deg,
+    rgba(102, 102, 102, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  ); */
+  /* background: linear-gradient(
+    0deg,
+    rgba(151, 150, 240, 1) 0%,
+    rgba(251, 199, 212, 1) 100%
+  ); */
+  background: linear-gradient(
+    90deg,
+    rgb(241, 182, 190) 0%,
+    rgb(253, 225, 228) 100%
+  );
+}
+
+#layout-main {
+  height: 100%;
 }

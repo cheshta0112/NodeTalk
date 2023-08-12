@@ -3,10 +3,32 @@
 // };
 const User = require("../models/users");
 
-module.exports.profile = function (req, res) {
-  return res.render("user_profile", {
-    title: "User Profile",
-  });
+module.exports.profile = async function (req, res) {
+  try {
+    const user = await User.findById(req.params.id);
+
+    return res.render("user_profile", {
+      title: "User Profile",
+      profile_user: user,
+    });
+  } catch (err) {
+    console.error("Error fetching user profile:", err);
+    return res.render("error", { error: "Error fetching user profile" });
+  }
+};
+
+module.exports.update = async function (req, res) {
+  try {
+    if (req.user.id == req.params.id) {
+      await User.findByIdAndUpdate(req.params.id, req.body);
+      return res.redirect("back");
+    } else {
+      return res.status(401).send("Unauthorized");
+    }
+  } catch (err) {
+    console.error("Error updating user:", err);
+    return res.render("error", { error: "Error updating user" });
+  }
 };
 
 // render the sign up page

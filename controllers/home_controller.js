@@ -1,4 +1,5 @@
 const Post = require("../models/post");
+const User = require("../models/users");
 
 module.exports.home = async function (req, res) {
   try {
@@ -10,15 +11,17 @@ module.exports.home = async function (req, res) {
           path: "user",
         },
       })
-      .exec();
+      .exec(); // Move the .exec() here
+
+    const users = await User.find({}); // Use await for fetching users as well
 
     return res.render("home", {
-      title: "Codeial | Home",
+      title: "NodeTalk | Home",
       posts: posts,
+      all_users: users,
     });
   } catch (err) {
-    // Handle error appropriately
-    console.error(err);
-    res.status(500).send("Internal Server Error");
+    console.error("Error fetching posts and users:", err);
+    return res.render("error", { error: "Error fetching posts and users" });
   }
 };
