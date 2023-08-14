@@ -22,7 +22,6 @@ passport.use(
           console.log("Invalid Username/Password");
           return done(null, false);
         }
-
         return done(null, user);
       } catch (err) {
         req.flash("error", err);
