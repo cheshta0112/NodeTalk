@@ -1,6 +1,11 @@
 <html>
   <head>
     <title><%= title %></title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
     <link rel="stylesheet" href="/css/layout.css" />
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
@@ -8,9 +13,36 @@
   </head>
 
   <body>
-    <%- include('_header'); -%>
+    <%- include('_header'); %>
+
     <main id="layout-main"><%- body %></main>
 
-    <%- include('_footer'); -%> <%-script -%>
+    <%- include('_footer'); %>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <script>
+      console.log('Script executed');
+      <% if (flash.success && flash.success.length > 0) { %>
+        Toastify({
+          text: "<%= flash.success %>",
+          duration: 1000,
+          position: 'center',
+          style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)"
+          }
+        }).showToast();
+      <% } else if (flash.error && flash.error.length > 0) { %>
+        Toastify({
+          text: "<%= flash.error %>",
+          duration: 1000,
+          style: {
+            background: "linear-gradient(to right, #ff6b6b, #ffa947)"
+          }
+        }).showToast();
+      <% } %>
+    </script>
+
+    <%- script %>
   </body>
 </html>

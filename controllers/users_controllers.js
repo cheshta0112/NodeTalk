@@ -21,8 +21,10 @@ module.exports.update = async function (req, res) {
   try {
     if (req.user.id == req.params.id) {
       await User.findByIdAndUpdate(req.params.id, req.body);
+      req.flash("success", "Updated!");
       return res.redirect("back");
     } else {
+      req.flash("error", "Unauthorized!");
       return res.status(401).send("Unauthorized");
     }
   } catch (err) {
@@ -54,21 +56,25 @@ module.exports.signIn = function (req, res) {
 // get the sign up data
 module.exports.create = function (req, res) {
   if (req.body.password !== req.body.confirm_password) {
+    req.flash("error", "Passwords do not match");
     return res.redirect("back");
   }
 
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
+        req.flash("error", err);
         return User.create(req.body);
       } else {
-        return Promise.reject("User already exists"); // or handle as needed
+        return Promise.reject("User already exists");
       }
     })
     .then((newUser) => {
+      req.flash("success", "You have signed up, login to continue!");
       return res.redirect("/users/sign-in");
     })
     .catch((error) => {
+      req.flash("error", error);
       console.error("Error in user creation:", error);
       return res.redirect("back");
     });
@@ -76,6 +82,7 @@ module.exports.create = function (req, res) {
 
 // sign in and create a session for the user
 module.exports.createSession = function (req, res) {
+  req.flash("success", "loged in sucessfully");
   return res.redirect("/");
 };
 
@@ -85,6 +92,7 @@ module.exports.destroySession = function (req, res) {
       console.log("error");
       return next(err);
     }
+    req.flash("success", "you have loged out");
     return res.redirect("/");
   });
 };
