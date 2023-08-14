@@ -7,10 +7,12 @@ module.exports.create = async function (req, res) {
       content: req.body.content,
       user: req.user._id,
     });
+    const userName = req.user.name;
     if (req.xhr) {
       return res.status(200).json({
         data: {
           post: post,
+          user: { name: userName },
         },
         message: "Post created!",
       });
@@ -27,7 +29,7 @@ module.exports.create = async function (req, res) {
 
 module.exports.destroy = async function (req, res) {
   try {
-    const post = await Post.findById(req.params.id);
+    let post = await Post.findById(req.params.id);
     // .id means converting the object id into string
     if (post.user == req.user.id) {
       await post.deleteOne();
