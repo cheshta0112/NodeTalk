@@ -18,6 +18,14 @@
 
           // call the create comment class
           new PostComments(data.data.post._id);
+          Toastify({
+            text: "New Post Added",
+            duration: 1000,
+            position: "center",
+            style: {
+              background: "linear-gradient(to right, #ff6b6b, #ffa947)",
+            },
+          }).showToast();
         },
         error: function (error) {
           console.log(error.responseText);
@@ -70,6 +78,14 @@
         url: $(deleteLink).prop("href"),
         success: function (data) {
           $(`#post-${data.data.post_id}`).remove();
+          Toastify({
+            text: "Post Deleted",
+            duration: 1000,
+            position: "center",
+            style: {
+              background: "linear-gradient(to right, #ff6b6b, #ffa947)",
+            },
+          }).showToast();
         },
         error: function (error) {
           console.log(error.responseText);

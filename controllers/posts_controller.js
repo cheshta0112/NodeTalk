@@ -9,10 +9,10 @@ module.exports.create = async function (req, res) {
     });
     const userName = req.user.name;
     if (req.xhr) {
+      await post.populate("user");
       return res.status(200).json({
         data: {
           post: post,
-          user: { name: userName },
         },
         message: "Post created!",
       });
