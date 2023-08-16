@@ -13,7 +13,7 @@ const flash = require("connect-flash");
 const customMware = require("./config/middleware");
 const Toastify = require("toastify-js");
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static("./assets"));
 // make the uploads path available to the browser
