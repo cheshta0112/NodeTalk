@@ -21,21 +21,27 @@ module.exports.destroy = async function (req, res) {
   try {
     let post = await Post.findById(req.params.id);
 
-    // if (post.user == req.user.id){
-    post.deleteOne();
+    if (!post) {
+      return res.status(404).json({
+        message: "Post not found",
+      });
+    }
+
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).json({
+        message: "You cannot delete this post!",
+      });
+    }
 
     await Comment.deleteMany({ post: req.params.id });
+    await post.deleteOne();
 
-    return res.json(200, {
+    return res.status(200).json({
       message: "Post and associated comments deleted successfully!",
     });
-    // }else{
-    //     req.flash('error', 'You cannot delete this post!');
-    //     return res.redirect('back');
-    // }
   } catch (err) {
-    console.log("********", err);
-    return res.json(500, {
+    console.error("Error:", err);
+    return res.status(500).json({
       message: "Internal Server Error",
     });
   }
