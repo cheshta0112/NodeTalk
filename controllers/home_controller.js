@@ -11,10 +11,16 @@ module.exports.home = async function (req, res) {
         populate: {
           path: "user",
         },
+        populate: {
+          path: "likes",
+        },
       })
-      .exec(); // Move the .exec() here
+      .populate("comments")
+      .populate("likes");
 
-    const users = await User.find({}); // Use await for fetching users as well
+    // .exec(); // Move the .exec() here
+
+    let users = await User.find({}); // Use await for fetching users as well
 
     return res.render("home", {
       title: "NodeTalk | Home",
