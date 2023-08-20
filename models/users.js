@@ -30,6 +30,12 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    friendships: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Friendship",
+      },
+    ],
   },
   {
     timestamps: true,
