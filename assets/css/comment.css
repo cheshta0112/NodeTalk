@@ -1,0 +1,50 @@
+/* Style the comment container */
+.comment-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+/* Style the comment user info */
+.comment-user-info {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Style the delete comment button */
+.delete-comment-button {
+  color: #ff0000; /* Red color for delete button */
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+/* Style the comment content */
+.comment-content {
+  margin-bottom: 10px;
+}
+
+/* Style the like button */
+.toggle-like-button {
+  color: #007bff; /* Blue color for like button */
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+/* Style the count of likes */
+.toggle-like-button:before {
+  content: "(";
+}
+
+.toggle-like-button:after {
+  content: ")";
+}
+
+/* Adjust spacing for likes */
+.toggle-like-button,
+.toggle-like-button:before,
+.toggle-like-button:after {
+  vertical-align: middle;
+}

@@ -6,8 +6,12 @@
   padding: 10px;
 }
 #user-friends {
-  width: 30%;
+  width: 50%;
   padding: 10px;
   border-left: 1px solid lightgrey;
   height: 100%;
+}
+
+#feed-posts textarea {
+  width: 50%;
 }

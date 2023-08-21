@@ -1,0 +1,111 @@
+/* Reset some default styles */
+ul,
+ol,
+li,
+p {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Style the full post container */
+.full-post {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the post content */
+.post-content {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* Style the delete post button */
+.delete-post-button {
+  color: red;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+/* Style the post user info */
+.post-user-info {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Style the likes section */
+.toggle-like-button {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+/* Style the comments section */
+.post-comments {
+  margin-top: 20px;
+}
+
+/* Style the comment form */
+#post-comments-form input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+/* Style the comment list */
+.post-comments-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Style individual comments */
+.comment-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.comment-content {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.comment-user-info {
+  font-size: 12px;
+  color: #666;
+}
+
+.delete-comment-button {
+  color: red;
+  text-decoration: none;
+  margin-right: 5px;
+}
+
+.comment-like-content {
+  font-size: 12px;
+  color: #333;
+  margin-top: 5px;
+}
+
+.post-comments input[type="submit"] {
+  width: 15%;
+  padding: 5px;
+  margin-bottom: 10px;
+  background-color: #007bff; /* Add your desired color here */
+  color: #fff; /* Text color for contrast */
+  border: none;
+  border-radius: 20px; /* Create a circular ending */
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.post-comments input[type="submit"]:hover {
+  background-color: #b30086; /* Add a darker shade for hover effect */
+}
+
+.post-comments input[type="text"] {
+  width: 50%;
+}
