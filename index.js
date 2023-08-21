@@ -1,4 +1,6 @@
 const express = require("express");
+const cors = require("cors"); // Import the cors module
+const http = require("http"); // Import the http module
 const cookieParser = require("cookie-parser");
 const app = express();
 const port = 8000;
@@ -15,17 +17,14 @@ const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
 const customMware = require("./config/middleware");
 
-// setup the chat server to be used with socket.io
-const chatServer = require("http").Server(app);
-const chatSockets = require("./config/chat_sockets").chatSockets(chatServer);
-chatServer.listen(5000);
-console.log("chat server is listening on port 5000");
-
 const Toastify = require("toastify-js");
+// const chatSockets = require("./config/chat_sockets");
 
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static("./assets"));
+
 // make the uploads path available to the browser
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
@@ -69,6 +68,37 @@ app.use(customMware.setFlash);
 
 //use express router
 app.use("/", require("./routes"));
+
+// Create an HTTP server instance
+const httpServer = http.createServer(app);
+
+// Set up the socket.io server with CORS
+const io = require("socket.io")(httpServer, {
+  cors: {
+    origin: "http://localhost:8000", // Specify the correct origin of your frontend
+    methods: ["GET", "POST"],
+    credentials: true, // If your frontend sends credentials (cookies, headers), set this to true
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("a user connected");
+
+  socket.on("disconnect", function () {
+    console.log("socket disconnected!");
+  });
+});
+
+// // Import your chatSockets module
+// const chatSockets = require("./config/chat_sockets");
+
+// // Use your chatSockets module to set up chat functionality
+// chatSockets.chatSockets(httpServer);
+
+// Listen on port 5000
+httpServer.listen(5000, () => {
+  console.log("server is running on port 5000");
+});
 
 app.listen(port, function (err) {
   if (err) {
