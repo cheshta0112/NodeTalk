@@ -1,4 +1,5 @@
 const express = require("express");
+const env = require("./config/environment");
 const cors = require("cors"); // Import the cors module
 const http = require("http"); // Import the http module
 const cookieParser = require("cookie-parser");
@@ -21,9 +22,17 @@ const Toastify = require("toastify-js");
 // const chatSockets = require("./config/chat_sockets");
 
 app.use(cors());
+
+const path = require("path");
+//only use saas files to be executed  when in development mode
+if (env.name == "development") {
+  //telling app to use it
+  app.use("/css", express.static(path.join(__dirname, env.asset_path, "css")));
+}
+
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static("./assets"));
+app.use(express.static(env.asset_path));
 
 // make the uploads path available to the browser
 app.use("/uploads", express.static(__dirname + "/uploads"));
@@ -41,7 +50,7 @@ app.use(
   session({
     name: "nodetalk",
     // TODO change the secret before deployment in production mode
-    secret: "something",
+    secret: env.session_cookie_key,
     saveUninitialized: false,
     resave: false,
     cookie: {
@@ -98,12 +107,6 @@ io.on("connection", (socket) => {
     io.in(data.chatroom).emit("receive_message", data);
   });
 });
-
-// // Import your chatSockets module
-// const chatSockets = require("./config/chat_sockets");
-
-// // Use your chatSockets module to set up chat functionality
-// chatSockets.chatSockets(httpServer);
 
 // Listen on port 5000
 httpServer.listen(5000, () => {

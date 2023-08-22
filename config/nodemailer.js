@@ -2,18 +2,10 @@ const nodemailer = require("nodemailer"); //import nordmailer
 const ejs = require("ejs");
 const path = require("path");
 
+const env = require("./environment");
 //the part which sends the email
 //defining  transporter
-let transporter = nodemailer.createTransport({
-  service: "gmail",
-  host: "smtp.gmail.com", //gmail  smptp  settings
-  port: 587,
-  secure: false,
-  auth: {
-    user: "cheshtapal07@gmail.com",
-    pass: "euyefnmonjllxqzu",
-  },
-});
+let transporter = nodemailer.createTransport(env.smtp);
 
 //defines whenever i am going to send an html email where the file would be placed inside the views
 let renderTemplate = (data, relativePath) => {
